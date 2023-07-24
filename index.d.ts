@@ -1,35 +1,34 @@
-// index.d.ts
 
-import { UseMutationOptions, UseMutationResult, UseQueryOptions, UseQueryResult } from 'react-query';
+type onSuccessFuncTypeMut = (data: any) => void;
 
-declare type onSuccessFuncType<T> = (data: T) => void;
-declare type onErrorFuncType = (error: any) => void;
+type requestClient = () => any;
 
-declare type AxiosInstance = any; // You can replace 'any' with the actual Axios instance type if available
-
-declare type MutationOptions<TData, TVariables> = UseMutationOptions<TData, unknown, TVariables, unknown>;
-
-declare type MutationResult<TData, TVariables> = UseMutationResult<TData, unknown, TVariables, unknown>;
-
-declare type PropsArg<TData, TVariables = unknown> = {
-    axios: AxiosInstance;
-    queryKey: string[];
-    axiosUrl: string;
-    axiosParams?: TVariables;
-    enabled?: boolean;
-    onSuccess?: onSuccessFuncType<TData>;
-    onError?: onErrorFuncType;
-    queryFn?: (variables?: TVariables) => Promise<TData>;
+type Props = {
+    mutationFn: requestClient;
+    mutationKey: string[] | string;
+    updateKeys?: string[] | string;
+    config?: object|null;
+    onSuccess?: onSuccessFuncTypeMut;
 };
 
-declare type PropsResponse<TData> = UseQueryResult<TData, any>;
 
-declare function useApiMutation<TData, TVariables = unknown>(
-    props: PropsArg<TData, TVariables>
-): MutationResult<TData, TVariables>;
+type onSuccessFuncTypeQuery = ({ data } : {data:any}) => void;
+type onErrorFuncTypeQuery = (error: any) => void;
 
-declare function useApiQuery<TData, TVariables = unknown>(
-    props: PropsArg<TData, TVariables>
-): PropsResponse<TData>;
-
-export { useApiMutation, useApiQuery };
+type PropsArg = {
+    axios: any;
+    queryKey: string[];
+    axiosUrl: string;
+    axiosParams?: any;
+    enabled?: boolean;
+    onSuccess?: onSuccessFuncTypeQuery;
+    onError?: onErrorFuncTypeQuery;
+    queryFn?: any;
+};
+type PropsResponse = {
+    isLoading: boolean;
+    isError: boolean;
+    isFetching: boolean;
+    data: any;
+    error: any;
+};

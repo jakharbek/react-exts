@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { UseMutationResult } from 'react-query';
 import { isArray, get, forEach } from 'lodash';
 
-type onSuccessFuncType = (data: any) => void;
+type onSuccessFuncTypeMut = (data: any) => void;
 
 type requestClient = () => any;
 
@@ -11,8 +11,8 @@ type Props = {
     mutationFn: requestClient;
     mutationKey: string[] | string;
     updateKeys?: string[] | string;
-    config?: UseMutationOptions<any, unknown, unknown, unknown>;
-    onSuccess?: onSuccessFuncType;
+    config?: object|null;
+    onSuccess?: onSuccessFuncTypeMut;
 };
 
 export const useApiMutation = ({

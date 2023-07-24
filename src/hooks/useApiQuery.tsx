@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useQuery, UseQueryOptions } from 'react-query';
 
-type onSuccessFuncType = ({ data } : {data:any}) => void;
-type onErrorFuncType = (error: any) => void;
+type onSuccessFuncTypeQuery = ({ data } : {data:any}) => void;
+type onErrorFuncTypeQuery = (error: any) => void;
 
 type PropsArg = {
     axios: any;
@@ -10,8 +10,8 @@ type PropsArg = {
     axiosUrl: string;
     axiosParams?: any;
     enabled?: boolean;
-    onSuccess?: onSuccessFuncType;
-    onError?: onErrorFuncType;
+    onSuccess?: onSuccessFuncTypeQuery;
+    onError?: onErrorFuncTypeQuery;
     queryFn?: any;
 };
 type PropsResponse = {
