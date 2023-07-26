@@ -1,13 +1,13 @@
 {
   "name": "react-exts",
-  "version": "1.0.7",
+  "version": "1.0.14",
   "description": "A collection of useful React hooks with TypeScript support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/your-username/your-package-name",
+  "repository": "https://github.com/jakharbek/react-exts",
   "author": "Javharbek",
   "license": "ISC",
   "keywords": [

@@ -7,7 +7,7 @@ import {useApiQuery} from "./useApiQuery";
 
 type onSuccessFuncTypeQueryManage = ({data}: { data: any }) => void;
 type onErrorFuncTypeQueryManage = (error: any) => void;
-type Props = {
+type PropsManage = {
     url: string,
     key: string[],
     params?: object | null,
@@ -19,7 +19,7 @@ type Props = {
 };
 
 // Define the type for the return value of useManageQuery hook
-interface UseManageQueryReturn {
+type UseManageQueryReturn = {
     data: any;
     isLoading: boolean;
     setQueryParams: React.Dispatch<React.SetStateAction<any>>;
@@ -81,7 +81,7 @@ export const useManageQuery = ({
                                    serializeDataName = "data",
                                    useInUrl = true,
                                    enabled = true
-                               }: Props):UseManageQueryReturn => {
+                               }: PropsManage):UseManageQueryReturn => {
     const [queryParams, setQueryParams] = useState<object | null>(null);
     const [enabledVar, setEnabledVar] =useState<boolean>(enabled);
     const serializeData = useQueryBrowserParams().get(serializeDataName);

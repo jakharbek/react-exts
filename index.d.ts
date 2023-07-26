@@ -32,3 +32,31 @@ type PropsResponse = {
     data: any;
     error: any;
 };
+
+type onSuccessFuncTypeQueryManage = ({data}: { data: any }) => void;
+type onErrorFuncTypeQueryManage = (error: any) => void;
+type PropsManage = {
+    url: string,
+    key: string[],
+    params?: object | null,
+    GetParams?: object | null,
+    serializeDataName?: string,
+    useInUrl?: boolean,
+    axios: any,
+    enabled?: boolean
+};
+
+// Define the type for the return value of useManageQuery hook
+type UseManageQueryReturn = {
+    data: any;
+    isLoading: boolean;
+    setQueryParams: React.Dispatch<React.SetStateAction<any>>;
+    setQueryParam: (name: string, value: any) => void;
+    clearQueryParams: () => void;
+    removeQueryParam: (name: string) => void;
+    queryParams: any | null;
+    getQueryParam: (name: string) => any;
+    setQueryParamMore: (objMap: any) => void;
+    setEnabledVar: React.Dispatch<React.SetStateAction<boolean>>;
+    enabledVar: boolean;
+}
