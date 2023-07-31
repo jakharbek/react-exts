@@ -3,14 +3,23 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import {useApiQuery} from "../../../src/hooks/useApiQuery";
+import useFormInputs from "../../../src/hooks/useFormInputs";
 import {client} from "./services/client";
 
 function App() {
   const [count, setCount] = useState(0)
     useApiQuery({axios: client, axiosUrl: "/typicode/demo/posts", queryKey: []})
+    const {view} = useFormInputs({
+        url:"/typicode/demo/posts",
+        formName:"test-1-form",
+        listKeyId: "test-1-form-key",
+        clientQuery: (url:string, attributes:any, config:any):any => client.post(url, attributes, config)
+    });
+
 
   return (
     <>
+        {view}
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
