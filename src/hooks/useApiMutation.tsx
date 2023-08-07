@@ -7,8 +7,17 @@ type onSuccessFuncTypeMut = (data: any) => void;
 
 type requestClient = () => any;
 
+type requestClient2 = (
+    url: string,
+    attributes: any,
+    config?: any
+) => any;
+type requestClient3 = (
+    url: string,
+    attributes: any
+) => any;
 type Props = {
-    mutationFn: requestClient;
+    mutationFn: any|requestClient|requestClient2|requestClient3;
     mutationKey: string[] | string;
     updateKeys?: string[] | string;
     config?: object|null;

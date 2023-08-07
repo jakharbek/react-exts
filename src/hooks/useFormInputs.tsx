@@ -31,7 +31,7 @@ interface UseFormInputsProps {
     formButtonTitle?: string;
     fields?: FormField[];
     url: string;
-    clientQuery?: ClientQueryFunction;
+    clientQuery?: ClientQueryFunction|any;
     onSuccess?: (response: any) => void;
     onError?: (error: any) => void;
     isResetFieldsSuccess?: boolean;
@@ -84,13 +84,15 @@ const useFormInputs = ({
         setValues(newValues);
     };
 
+    console.log("clientQuery clientQuery",clientQuery)
+
     const {
         mutate: formSubmit,
         isLoading: formSubmitLoading,
         isError: formSubmitIsError,
         error: formSubmitError,
     } = useApiMutation({
-        mutationFn: () => clientQuery,
+        mutationFn: clientQuery,
         mutationKey: "use-form-inputs-submit"
     });
 
@@ -168,18 +170,26 @@ const useFormInputs = ({
 
     const onSubmit = (dataValues: any) => {
         console.log("ALL ONSUBMIT", dataValues);
+
+        console.log("formSubmit",formSubmit);
+
         // @ts-ignore
-        formSubmit({url, attributes: dataValues,}).then(({ data }:any):void => {
-                toast.success("SUCCESS");
-                onSuccess(data);
-                if (isResetFieldsSuccess) {
-                    resetFields();
+        formSubmit({
+                url,
+                attributes: dataValues
+            },
+            {
+                onSuccess: ({data}) => {
+                    onSuccess(data);
+                    if (isResetFieldsSuccess) {
+                        resetFields();
+                    }
+                },
+                onError: (e) => {
+                    onError(e);
                 }
-            })
-            .catch((error: any) => {
-                toast.error("ERROR");
-                onError(error);
-            });
+            }
+        )
     };
 
     const view = enabled === true ? (

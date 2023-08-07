@@ -1,21 +1,60 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import {useApiQuery} from "../../../src/hooks/useApiQuery";
 import useFormInputs from "../../../src/hooks/useFormInputs";
 import {client} from "./services/client";
+import { useApiMutation } from '../../../src/hooks/useApiMutation';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
     useApiQuery({axios: client, axiosUrl: "/typicode/demo/posts", queryKey: []})
-    const {view} = useFormInputs({
+    const {view,setEnabled} = useFormInputs({
         url:"/typicode/demo/posts",
         formName:"test-1-form",
         listKeyId: "test-1-form-key",
-        clientQuery: (url:string, attributes:any, config:any):any => client.post(url, attributes, config)
+        fields: [
+            {
+                name: "title",
+                type: "input",
+                title: "Title",
+                isRequired: true,
+                readOnly: false,
+                disabled: false,
+                hidden: false,
+            },
+            {
+                name: "title2",
+                type: "input",
+                title: "Title2",
+                isRequired: true,
+                readOnly: false,
+                disabled: false,
+                hidden: false,
+            },
+        ],
+        clientQuery: ({url, attributes, config}):any => {
+            return client.post(url, attributes, config);
+        },
+        onSuccess: () => {
+            alert("success");
+        }
     });
 
+
+    const {mutate,isLoading,isError, error,data} = useApiMutation({
+        mutationFn: (url, attributes, config):any => {
+            return client.post(url, attributes, config);
+        },
+        mutationKey: "asdqwdqwd-test"
+    });
+
+
+    useEffect(() => {
+        setEnabled(true);
+        mutate("/typicode/demo/posts2");
+    },[]);
 
   return (
     <>
